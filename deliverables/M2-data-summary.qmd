@@ -1,0 +1,63 @@
+---
+title: "M2 Data Summary Deliverable"
+subtitle: "Portfolio Resilience: Backtesting Asset Allocation Strategies During Financial Crises"
+author:
+  - "Dane Herrin"
+  - "Alexander Jackson"
+date: today
+bibliography: refs.bib
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+  pdf:
+    toc: true
+    number-sections: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Research Question Reminder
+- **Primary research question:**
+    - How can portfolio optimization help stakeholders construct portfolios that preserve return potential while reducing drawdowns during periods of financial crisis and market uncertainty?
+- **Sub questions:**
+    1. Do drawdown-resistant portfolios experience significantly lower gains during growth years compared to regular market indexes?
+    2. How does portfolio performance during crisis periods compare to performance during normal market conditions?
+    3. How are Sharpe and Sortino ratios affected during periods of uncertainty compared to periods of growth?
+    4. How do different asset classes and sectors, such as technology, energy, real estate, consumer staples, and defensive treasury-based assets, behave during periods of market stress?
+
+
+## Data Inventory
+- Portfolio construction spans from 34 securities and equities and 20 years of daily trading prices. This is outlined in the EDA Capstone notebook in notebooks folder of this repository. The individual stocks and benchmark tickers are pulled from yfinance and stored as pandas dataframes. 
+- They are then segregated into five individual portfolios, including Mega-Cap Tech stocks. These include the largest technological companies of the last 25 years such as Apple, Microsoft, NVIDIA, Google, Amazon, Meta, Broadcom, and Tesla. 
+- The second Portfolio was constructed under the barbell investment theory. 95% of the portfolio is invested in risk-free bond securities and the other 5% is invested in a volatile equity that is negatively correlated with the market. 
+- The third portfolio highlights the Energy sector, including ExxonMobil, Chevron, ConocoPhillips, EOG Resources, Schlumberger, NextEra Energy, Duke Energy, Constellation Energy, Southern Company, and Dominion Energy. This grants exposure to oil refinement, extraction, and processing and electrical infrastructure.
+- The fourth portfolio tracks an aggregated commercial real estate ETF from Vanguard. 
+- The final portfolio tracks Fast Moving Consumer Goods, or *FMCG*. This gives exposure to groceries like Walmart, Costco, and Targer. There are branded consumer goods Procter & Gamble, Unilever, and Kimberly-Clark. Finally, food and beverage companies Coca-Cola, PepsiCo, Nestle, and General Mills. 
+* Since these data are static, one pull from Yahoo Finance per notebook has given us enough data to complete portfolio analysis to the scope of this project. This is a single API pull that doesn't need to be recreated for daily scraping. 
+
+## Schema and Organization
+- Using single pull dataframes saves space and therefore shareholder time and money. Portfolio tickers are saved as in key:value dictionaries, as are the timeframe regimes. Those are then used to download price data starting from the first available date of public trading, or 01-03-2000, whichever is first. Some tickers have IPO'ed after January 2000, where equal weighting to the portfolio is kept throughout the regimes. Once a new equity is added, the portfolio weighting is rebalanced to keep equal weighting with all equities. This is most prevalent with the Mega-Cap Tech portfolio, as four of the eight stocks IPO'ed after 2000. 
+- Benchmarks are the Fama-French Mkt-Rf return, which is an aggregation of the returns of all existing markets minus the risk-free rate, which is the rate of return that the safest asset gives. The 10-year US treasury bill yield is used as a proxy to represent this return. The other benchmark is the S&P 500, an aggregation of the 500 largest companies that are traded on public markets. 
+- The lack of need for 3NF relational databases mean that we don't have explicit primary keys or join paths. We do however keep our dataframes indexed on date, which becomes the x axis for visualization. 
+
+## Ingestion Status
+- Manual pulls are completed and EDA and visualization is completed. 
+
+## Data Quality and Profiling
+- Data missingness within portfolios are dealt with by balancing and rebalancing the portfolio as the data becomes available, as rebalancing is an industry standard behavior. Duplicates are not an issue, as each equitiy is given an individual ticker and tracked solely by that ticker. Outliers are left in and not smoothed out, as they are what we are tracking. 
+- Some caveats for the research are that the five different portfolios essentially track two sides of the market, securities and equities. The different portfolios track the major sectors on the equity side, while the Barbell portflio tracks the US Bond market that represents the security side. In essence, our research is parsing out different aspects of the market and expect to see a fair amount of co-variance between portfolios. 
+- Finding an acceptable proxy for market volatility presented an initial challenge. The variable used in the end was the Volatility Index, which was created in 1993 to track the implied volatility from S&P 100 at-the-money options. It became tradable as the VIX on the volatility derivatives market in 2004. Since our portfolio tracks the price of the ^VIX, there is no data prior to 2004 for the barbell portfolio. 
+
+## Reproducibility
+- This project is very reproducable. Someone could use this as a code base, change the variables and tickers pulled from the database, and track their own portfolio constructions. There are portions of this project where the code has been pulled from other quantitative analysis projects we have done in the past. 
+
+## Ethics and Access Controls
+- All data pulled is properly labeled, consented to, free, and openly available through Yahoo Finance. This is all public data that is utilized by thousands of traders every day, from retail investors to institutions. 
+- One note to the cleanliness, availability, and ease of this data is that we have found the closer open source data is value creation, the better it is maintained. Public market data are some of the most available and easy to use data we have encountered. This has made this project a treat in that respect. 
+
+## Freeze Statement
+- All needed data for this proposal has been collected and no further ingestion will be needed. 
