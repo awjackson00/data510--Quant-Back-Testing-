@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Dane Herrin">
+<meta name="author" content="Alexander Jackson">
+<meta name="dcterms.date" content="2026-06-28">
+
+<title>M2 Data Summary Deliverable</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="M2-data-summary_files/libs/clipboard/clipboard.min.js"></script>
+<script src="M2-data-summary_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="M2-data-summary_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="M2-data-summary_files/libs/quarto-html/popper.min.js"></script>
+<script src="M2-data-summary_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="M2-data-summary_files/libs/quarto-html/anchor.min.js"></script>
+<link href="M2-data-summary_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="M2-data-summary_files/libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="M2-data-summary_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="M2-data-summary_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="M2-data-summary_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#research-question-reminder" id="toc-research-question-reminder" class="nav-link active" data-scroll-target="#research-question-reminder"><span class="header-section-number">1</span> Research Question Reminder</a></li>
+  <li><a href="#data-inventory" id="toc-data-inventory" class="nav-link" data-scroll-target="#data-inventory"><span class="header-section-number">2</span> Data Inventory</a></li>
+  <li><a href="#schema-and-organization" id="toc-schema-and-organization" class="nav-link" data-scroll-target="#schema-and-organization"><span class="header-section-number">3</span> Schema and Organization</a></li>
+  <li><a href="#ingestion-status" id="toc-ingestion-status" class="nav-link" data-scroll-target="#ingestion-status"><span class="header-section-number">4</span> Ingestion Status</a></li>
+  <li><a href="#data-quality-and-profiling" id="toc-data-quality-and-profiling" class="nav-link" data-scroll-target="#data-quality-and-profiling"><span class="header-section-number">5</span> Data Quality and Profiling</a></li>
+  <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility"><span class="header-section-number">6</span> Reproducibility</a></li>
+  <li><a href="#ethics-and-access-controls" id="toc-ethics-and-access-controls" class="nav-link" data-scroll-target="#ethics-and-access-controls"><span class="header-section-number">7</span> Ethics and Access Controls</a></li>
+  <li><a href="#freeze-statement" id="toc-freeze-statement" class="nav-link" data-scroll-target="#freeze-statement"><span class="header-section-number">8</span> Freeze Statement</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="M2-data-summary.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">M2 Data Summary Deliverable</h1>
+<p class="subtitle lead">Portfolio Resilience: Backtesting Asset Allocation Strategies During Financial Crises</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Dane Herrin </p>
+             <p>Alexander Jackson </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 28, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="research-question-reminder" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="research-question-reminder"><span class="header-section-number">1</span> Research Question Reminder</h2>
+<p>This project examines how portfolio optimization can help stakeholders construct portfolios that preserve return potential while reducing drawdowns during periods of financial crisis and market uncertainty. The frozen data scope supports this question by collecting historical daily market data for selected securities, sector portfolios, defensive assets, and benchmark indexes. These data allow us to compare portfolio behavior across growth periods, normal market periods, and crisis regimes using total return, drawdown, volatility, Sharpe ratio, Sortino ratio, and sector-level performance.</p>
+<ul>
+<li><strong>Primary research question:</strong>
+<ul>
+<li>How can portfolio optimization help stakeholders construct portfolios that preserve return potential while reducing drawdowns during periods of financial crisis and market uncertainty?</li>
+</ul></li>
+<li><strong>Sub questions:</strong>
+<ol type="1">
+<li>Do drawdown-resistant portfolios experience significantly lower gains during growth years compared to regular market indexes?</li>
+<li>How does portfolio performance during crisis periods compare to performance during normal market conditions?</li>
+<li>How are Sharpe and Sortino ratios affected during periods of uncertainty compared to periods of growth?</li>
+<li>How do different asset classes and sectors, such as technology, energy, real estate, consumer staples, and defensive treasury-based assets, behave during periods of market stress?</li>
+</ol></li>
+</ul>
+<p>The data scope is now frozen around the portfolios, benchmarks, and historical market data needed to answer these questions. Future work will focus on analysis, modeling, optimization, and communication rather than adding new data sources.</p>
+</section>
+<section id="data-inventory" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="data-inventory"><span class="header-section-number">2</span> Data Inventory</h2>
+<p>The current frozen data scope covers historical market data through <strong>2026-06-28</strong>. This snapshot is sufficient for the current data summary, EDA, portfolio backtesting, crisis-period comparison, and optimization analysis. No additional market data will be collected after this milestone.</p>
+<p>The frozen data scope includes <strong>31 portfolio assets across 5 constructed portfolios</strong>, plus benchmark series used for comparison. In total, the historical price pull includes <strong>34 downloaded asset or benchmark columns</strong>. Historical adjusted prices were pulled from Yahoo Finance through <code>yfinance</code>, producing a price dataframe from <strong>2007-01-03 through 2026-06-28</strong>. These prices were converted into daily returns, then aggregated into a combined portfolio and benchmark return dataframe used for portfolio-level analysis.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 18%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Dataset / Table</th>
+<th>Source</th>
+<th>License / Terms</th>
+<th style="text-align: right;">Row Count / Size</th>
+<th>Date Range</th>
+<th>Refresh Policy</th>
+<th>Repo Location</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Portfolio construction table</td>
+<td>Team-created</td>
+<td>Internal project artifact</td>
+<td style="text-align: right;">31 rows</td>
+<td>Static</td>
+<td>Frozen after M2 unless approved scope change occurs</td>
+<td><code>notebooks/EDA Capstone.ipynb</code></td>
+</tr>
+<tr class="even">
+<td>Historical adjusted prices</td>
+<td>Yahoo Finance via <code>yfinance</code></td>
+<td>Public market data through API wrapper</td>
+<td style="text-align: right;">[rerun row count] rows x 34 columns</td>
+<td>2007-01-03 to 2026-06-28</td>
+<td>Frozen after M2; no further ingestion planned</td>
+<td><code>notebooks/EDA Capstone.ipynb</code></td>
+</tr>
+<tr class="odd">
+<td>Asset-level daily returns</td>
+<td>Derived from adjusted prices</td>
+<td>Same as source data</td>
+<td style="text-align: right;">[rerun row count] rows x 34 columns</td>
+<td>2007-01-03 to 2026-06-28</td>
+<td>Rebuilt only from frozen inputs</td>
+<td><code>notebooks/EDA Capstone.ipynb</code></td>
+</tr>
+<tr class="even">
+<td>Combined portfolio and benchmark returns</td>
+<td>Derived from asset returns, portfolio weights, and benchmark definitions</td>
+<td>Team-created derived dataset</td>
+<td style="text-align: right;">[rerun row count] rows x 9 columns</td>
+<td>2007-01-04 to 2026-06-28</td>
+<td>Rebuilt only from frozen inputs</td>
+<td><code>notebooks/EDA Capstone.ipynb</code></td>
+</tr>
+<tr class="odd">
+<td>Crisis and regime definitions</td>
+<td>Team-created</td>
+<td>Internal project artifact</td>
+<td style="text-align: right;">Defined in notebook</td>
+<td>Historical crisis and growth windows</td>
+<td>Static after M2 freeze</td>
+<td><code>notebooks/EDA Capstone.ipynb</code></td>
+</tr>
+<tr class="even">
+<td>Sharpe and Sortino calculations</td>
+<td>Derived from portfolio return data</td>
+<td>Team-created derived analysis</td>
+<td style="text-align: right;">Notebook output</td>
+<td>Same as portfolio return period</td>
+<td>Rebuilt from frozen portfolio return data</td>
+<td><code>notebooks/SharpeRatioSheet.ipynb</code></td>
+</tr>
+</tbody>
+</table>
+<p>Because the data are static for the purposes of this milestone, one pull from Yahoo Finance per notebook provides enough data to complete the portfolio analysis within the current project scope. The project does not require daily scraping or ongoing data ingestion after the M2 freeze.</p>
+<section id="portfolio-construction-inventory" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="portfolio-construction-inventory"><span class="header-section-number">2.1</span> Portfolio Construction Inventory</h3>
+<p>The project currently organizes assets into five main constructed portfolios plus market benchmarks.</p>
+<ol type="1">
+<li><p><strong>Mega-Cap Technology Portfolio</strong><br>
+This portfolio includes large technology and growth-oriented companies from the last 25 years, including Apple, Microsoft, NVIDIA, Google, Amazon, Meta, Broadcom, and Tesla. The purpose of this portfolio is to represent concentrated exposure to high-growth technology firms.</p></li>
+<li><p><strong>Barbell Portfolio</strong><br>
+This portfolio is based on barbell investment theory. Most of the portfolio is allocated to defensive or risk-free bond exposure, while a small portion is allocated to a volatility-sensitive asset. In the current construction, 95% is allocated to risk-free or treasury-based securities and 5% is allocated to a volatility proxy. This portfolio is designed to test downside protection and market-stress resilience.</p></li>
+<li><p><strong>Energy Portfolio</strong><br>
+This portfolio includes ExxonMobil, Chevron, ConocoPhillips, EOG Resources, Schlumberger, NextEra Energy, Duke Energy, Constellation Energy, Southern Company, and Dominion Energy. The portfolio provides exposure to oil extraction, oil refinement, energy services, utilities, and electrical infrastructure.</p></li>
+<li><p><strong>Real Estate Portfolio</strong><br>
+This portfolio tracks real estate exposure using an aggregated commercial real estate ETF from Vanguard. This allows the project to evaluate how real estate behaves during normal markets, inflationary periods, and high-interest-rate environments.</p></li>
+<li><p><strong>Fast-Moving Consumer Goods Portfolio</strong><br>
+The final portfolio tracks fast-moving consumer goods, or FMCG. This portfolio includes grocery and retail companies such as Walmart, Costco, and Target; branded consumer goods companies such as Procter &amp; Gamble, Unilever, and Kimberly-Clark; and food and beverage companies such as Coca-Cola, PepsiCo, Nestle, and General Mills. This portfolio is intended to represent defensive consumer demand.</p></li>
+<li><p><strong>Benchmarks</strong><br>
+The project uses market benchmarks to compare portfolio performance. These include regular market indexes and benchmark return series such as the S&amp;P 500, market excess return where applicable, and a risk-free rate proxy. These benchmarks provide reference points for evaluating whether the constructed portfolios outperform, underperform, or trade return potential for drawdown resistance.</p></li>
+</ol>
+</section>
+</section>
+<section id="schema-and-organization" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="schema-and-organization"><span class="header-section-number">3</span> Schema and Organization</h2>
+<p>The project is organized around portfolio dictionaries and date-indexed financial dataframes. The portfolio construction dictionaries define each portfolio as a set of ticker and weight pairs. These dictionaries are then used to download historical price data, calculate daily returns, and aggregate individual asset returns into portfolio-level return series.</p>
+<p>The project does not require a fully normalized 3NF relational database because the analysis is time-series based and can be handled efficiently through pandas dataframes. However, the data still have clear keys, indexes, and transformation paths. The central unit of observation is a daily market observation for a ticker or portfolio.</p>
+<section id="logical-data-structure" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="logical-data-structure"><span class="header-section-number">3.1</span> Logical Data Structure</h3>
+<p>The project follows this logical flow:</p>
+<ol type="1">
+<li><p><strong>Portfolio definitions</strong><br>
+Team-created dictionaries define portfolio names, tickers, and weights.</p></li>
+<li><p><strong>Raw market data</strong><br>
+Historical adjusted prices are downloaded from Yahoo Finance through <code>yfinance</code>.</p></li>
+<li><p><strong>Asset-level returns</strong><br>
+Adjusted prices are converted into daily percentage returns for each ticker.</p></li>
+<li><p><strong>Portfolio-level returns</strong><br>
+Individual asset returns are weighted and combined to create daily portfolio return series.</p></li>
+<li><p><strong>Regime and crisis labels</strong><br>
+Date ranges are assigned to market regimes, including crisis periods, growth periods, and normal market periods.</p></li>
+<li><p><strong>Analysis-ready metrics</strong><br>
+Portfolio return data are used to calculate cumulative return, maximum drawdown, volatility, Sharpe ratio, Sortino ratio, and crisis-specific performance metrics.</p></li>
+</ol>
+</section>
+<section id="keys-and-join-paths" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="keys-and-join-paths"><span class="header-section-number">3.2</span> Keys and Join Paths</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data Object</th>
+<th>Key / Index</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Price dataframe</td>
+<td><code>date</code>, <code>ticker</code></td>
+<td>Tracks adjusted prices for each asset over time</td>
+</tr>
+<tr class="even">
+<td>Return dataframe</td>
+<td><code>date</code>, <code>ticker</code></td>
+<td>Tracks daily percentage returns for each asset</td>
+</tr>
+<tr class="odd">
+<td>Portfolio dictionary</td>
+<td><code>portfolio</code>, <code>ticker</code>, <code>weight</code></td>
+<td>Defines portfolio construction</td>
+</tr>
+<tr class="even">
+<td>Portfolio return dataframe</td>
+<td><code>date</code>, <code>portfolio</code></td>
+<td>Tracks daily weighted returns for each portfolio</td>
+</tr>
+<tr class="odd">
+<td>Regime dictionary</td>
+<td><code>start_date</code>, <code>end_date</code>, <code>regime_name</code></td>
+<td>Labels market conditions by date range</td>
+</tr>
+<tr class="even">
+<td>Combined returns dataframe</td>
+<td><code>date</code>, <code>portfolio_or_benchmark</code></td>
+<td>Holds final portfolio and benchmark return series</td>
+</tr>
+</tbody>
+</table>
+<p>The main join path is:</p>
+<p><code>portfolio weights + asset returns -&gt; weighted asset returns -&gt; portfolio-level returns -&gt; crisis/normal regime labels -&gt; performance metrics</code></p>
+<p>This structure allows the team to move from raw daily prices to analysis-ready portfolio comparisons without needing a full relational warehouse.</p>
+</section>
+<section id="raw-vs-analysis-ready-layers" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="raw-vs-analysis-ready-layers"><span class="header-section-number">3.3</span> Raw vs Analysis-Ready Layers</h3>
+<ul>
+<li><strong>Raw layer:</strong> Market prices pulled from Yahoo Finance and the team-created portfolio definitions.</li>
+<li><strong>Interim layer:</strong> Cleaned adjusted prices and daily return calculations.</li>
+<li><strong>Analysis-ready layer:</strong> Portfolio-level returns, benchmark returns, crisis-period labels, and performance metric tables.</li>
+</ul>
+<p>The current work is stored primarily in the <code>EDA Capstone.ipynb</code> notebook inside the <code>notebooks/</code> folder. The <code>portfolioConstruction(1).ipynb</code> notebook was used for initial portfolio construction work, and <code>SharpeRatioSheet.ipynb</code> supports the risk-adjusted performance calculations, including Sharpe and Sortino ratio analysis. As the project matures, derived tables can also be exported to <code>data/raw/</code>, <code>data/interim/</code>, and <code>data/processed/</code> folders for clearer DS3-style organization.</p>
+</section>
+</section>
+<section id="ingestion-status" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="ingestion-status"><span class="header-section-number">4</span> Ingestion Status</h2>
+<p>Manual data pulls have been completed for the frozen M2 data snapshot through <strong>2026-06-28</strong>, and the ingestion process is stable. The notebook pulls financial data through <code>yfinance</code>, stores the results as pandas dataframes, and transforms those data into asset-level and portfolio-level return series.</p>
+<p>The source system, ticker list, benchmark list, portfolio construction logic, and crisis-regime definitions are frozen. No additional ingestion work is planned after this milestone. Future work will focus on analysis, optimization, visualization, and communication rather than bringing in new data.</p>
+<p>At this stage, the team has completed:</p>
+<ul>
+<li>Portfolio construction definitions</li>
+<li>Historical market data pulls through 2026-06-28</li>
+<li>Daily return calculations</li>
+<li>Portfolio-level return calculations</li>
+<li>Initial EDA and visualization</li>
+<li>Benchmark comparison setup</li>
+<li>Crisis and market-regime framing</li>
+<li>Sharpe and Sortino ratio setup</li>
+</ul>
+<p>The pipeline is stable because rerunning the notebook performs the same pull, transformation, return construction, and metric generation steps without manual file downloads.</p>
+<section id="ingestion-pipeline" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="ingestion-pipeline"><span class="header-section-number">4.1</span> Ingestion Pipeline</h3>
+<p>The ingestion pipeline follows this order:</p>
+<ol type="1">
+<li>Define portfolio tickers and weights.</li>
+<li>Define benchmark tickers and market regime windows.</li>
+<li>Pull adjusted historical price data using <code>yfinance</code>.</li>
+<li>Convert adjusted prices into daily returns.</li>
+<li>Rebalance portfolio weights as assets become available.</li>
+<li>Aggregate weighted returns into portfolio-level return series.</li>
+<li>Compare portfolio returns against benchmarks and market regimes.</li>
+<li>Calculate performance metrics such as cumulative return, volatility, Sharpe ratio, Sortino ratio, and drawdown.</li>
+</ol>
+</section>
+<section id="failure-handling" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="failure-handling"><span class="header-section-number">4.2</span> Failure Handling</h3>
+<p>Potential ingestion issues include unavailable tickers, assets with short trading histories, missing daily prices, or API interruptions. These issues are handled by checking first available trading dates, missing values, and whether each portfolio has enough observations for comparison. If a ticker is unavailable or has insufficient history, the team will either use a reasonable ETF proxy, restrict the analysis window, or document the limitation.</p>
+<p>The project does not require scheduled scraping. Since the analysis is historical and the M2 data scope is frozen, the ingestion process is treated as a reproducible one-shot pull rather than a recurring production pipeline.</p>
+</section>
+</section>
+<section id="data-quality-and-profiling" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="data-quality-and-profiling"><span class="header-section-number">5</span> Data Quality and Profiling</h2>
+<p>The main data quality concerns are missingness, asset availability, outliers, benchmark comparability, rebalancing assumptions, and volatility proxy limitations.</p>
+<section id="missingness-and-asset-availability" class="level3" data-number="5.1">
+<h3 data-number="5.1" class="anchored" data-anchor-id="missingness-and-asset-availability"><span class="header-section-number">5.1</span> Missingness and Asset Availability</h3>
+<p>The frozen M2 data snapshot is analyzed through <strong>2026-06-28</strong>. The price dataframe contains daily trading observations for the selected portfolio assets and benchmarks. The asset return dataframe has the same asset coverage, but the first trading day is not usable for return analysis because daily returns require a prior price observation. As a result, the combined portfolio and benchmark return dataframe begins one trading day after the first available price date.</p>
+<p>Missingness within portfolios is handled by rebalancing the portfolio as asset data become available. This is important because some companies went public after January 2000 and therefore do not have full historical coverage. For example, the Mega-Cap Technology Portfolio includes companies with different IPO dates, so equal weighting is maintained among available assets until additional assets enter the portfolio.</p>
+<p>This approach reflects a realistic rebalancing practice, but it also means that portfolio composition changes over time. The analysis will document this limitation when comparing early periods to later periods.</p>
+</section>
+<section id="duplicates" class="level3" data-number="5.2">
+<h3 data-number="5.2" class="anchored" data-anchor-id="duplicates"><span class="header-section-number">5.2</span> Duplicates</h3>
+<p>Duplicates are not expected to be a major issue because each equity, ETF, or index is tracked by a unique ticker and indexed by date. Each ticker-date combination should appear once in the raw price data. If duplicate ticker-date rows are found, they will be removed before return calculations.</p>
+</section>
+<section id="outliers" class="level3" data-number="5.3">
+<h3 data-number="5.3" class="anchored" data-anchor-id="outliers"><span class="header-section-number">5.3</span> Outliers</h3>
+<p>Outliers are intentionally preserved because extreme market movements are central to this project. The goal is to examine how portfolios behave during stress events, so large negative or positive returns should not be automatically smoothed out. However, extreme values will be reviewed to distinguish true market events from possible data errors.</p>
+</section>
+<section id="portfolio-weight-checks" class="level3" data-number="5.4">
+<h3 data-number="5.4" class="anchored" data-anchor-id="portfolio-weight-checks"><span class="header-section-number">5.4</span> Portfolio Weight Checks</h3>
+<p>Each portfolio must maintain valid allocation weights. Equal-weighted portfolios should sum to 1 across available assets, and the barbell portfolio should preserve its 95/5 allocation logic. Weight checks are necessary because incorrect weights would distort portfolio return, volatility, Sharpe ratio, Sortino ratio, and drawdown results.</p>
+</section>
+<section id="market-coverage-caveats" class="level3" data-number="5.5">
+<h3 data-number="5.5" class="anchored" data-anchor-id="market-coverage-caveats"><span class="header-section-number">5.5</span> Market Coverage Caveats</h3>
+<p>The five constructed portfolios primarily track different sides of the market, including equities, defensive securities, and sector-specific exposure. Because many assets still respond to broad market conditions, the team expects some covariance between portfolios. Part of the analysis will examine whether diversification benefits remain meaningful during crisis periods or whether correlations increase during market stress.</p>
+</section>
+<section id="volatility-proxy-caveat" class="level3" data-number="5.6">
+<h3 data-number="5.6" class="anchored" data-anchor-id="volatility-proxy-caveat"><span class="header-section-number">5.6</span> Volatility Proxy Caveat</h3>
+<p>Finding an acceptable proxy for market volatility presented an initial challenge. The variable used in the current version is the Volatility Index, or VIX. The VIX was created to track implied volatility from options markets and became tradable through volatility derivatives in the 2000s. Since the current portfolio tracks the price of <code>^VIX</code>, the barbell portfolio has limited history before 2004. In addition, <code>^VIX</code> itself is an index rather than a directly investable asset, so the final analysis will either treat it as a stress proxy or clearly document it as a limitation.</p>
+</section>
+</section>
+<section id="reproducibility" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="reproducibility"><span class="header-section-number">6</span> Reproducibility</h2>
+<p>This project is reproducible because the portfolio definitions, tickers, date ranges, and data pull process are contained in the project notebooks. A peer could rerun the notebooks to reconstruct the same market data pull, daily return calculations, portfolio return series, risk-adjusted metrics, and visualizations.</p>
+<section id="main-notebooks" class="level3" data-number="6.1">
+<h3 data-number="6.1" class="anchored" data-anchor-id="main-notebooks"><span class="header-section-number">6.1</span> Main Notebooks</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Notebook</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>notebooks/EDA Capstone.ipynb</code></td>
+<td>Main M2 data pipeline, EDA, portfolio return construction, and visualization</td>
+</tr>
+<tr class="even">
+<td><code>notebooks/SharpeRatioSheet.ipynb</code></td>
+<td>Supports Sharpe, Sortino, and risk-adjusted return calculations</td>
+</tr>
+<tr class="odd">
+<td><code>notebooks/portfolioConstruction(1).ipynb</code></td>
+<td>Earlier portfolio construction and exploratory setup</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rebuild-instructions" class="level3" data-number="6.2">
+<h3 data-number="6.2" class="anchored" data-anchor-id="rebuild-instructions"><span class="header-section-number">6.2</span> Rebuild Instructions</h3>
+<p>To rebuild the analysis-ready data:</p>
+<ol type="1">
+<li>Clone the project repository.</li>
+<li>Install the required Python packages.</li>
+<li>Open the EDA Capstone notebook in the <code>notebooks/</code> folder.</li>
+<li>Restart the kernel and run the notebook from top to bottom.</li>
+<li>Confirm that the price data, return data, portfolio return data, and visualizations are regenerated.</li>
+<li>Run <code>SharpeRatioSheet.ipynb</code> if updated Sharpe and Sortino outputs are needed.</li>
+</ol>
+<p>Example environment setup:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install pandas numpy yfinance matplotlib</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="environment-notes" class="level3" data-number="6.3">
+<h3 data-number="6.3" class="anchored" data-anchor-id="environment-notes"><span class="header-section-number">6.3</span> Environment Notes</h3>
+<p>The project uses Python with the following core packages:</p>
+<ul>
+<li><code>pandas</code></li>
+<li><code>numpy</code></li>
+<li><code>yfinance</code></li>
+<li><code>matplotlib</code></li>
+</ul>
+<p>No private API keys or secrets are required for the current ingestion pipeline. Yahoo Finance data are accessed through the public <code>yfinance</code> package, and all portfolio definitions are stored directly in the project notebooks.</p>
+</section>
+<section id="reproducibility-caveat" class="level3" data-number="6.4">
+<h3 data-number="6.4" class="anchored" data-anchor-id="reproducibility-caveat"><span class="header-section-number">6.4</span> Reproducibility Caveat</h3>
+<p>Because Yahoo Finance data can occasionally revise adjusted prices or change ticker availability, exact row counts may vary slightly if the notebook is rerun in the future. To preserve reproducibility for this milestone, the project freezes the analysis window at <strong>2026-06-28</strong> and documents the pull date, asset list, benchmark list, and portfolio construction logic used for the M2 data summary.</p>
+</section>
+</section>
+<section id="ethics-and-access-controls" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="ethics-and-access-controls"><span class="header-section-number">7</span> Ethics and Access Controls</h2>
+<p>All data used in the current project are public financial market data. No personally identifiable information, private investor records, account-level data, or restricted financial information are collected.</p>
+<p>The primary ethical risk is that the results could be misinterpreted as investment advice. To address this, the project will clearly state that all analysis is historical and educational. The project does not recommend that stakeholders buy, sell, or hold any specific asset.</p>
+<p>A second ethical limitation is that backtesting can create false confidence. Historical performance does not guarantee future results. The project will avoid presenting any portfolio as objectively “best” for future investing and will instead frame results as evidence about how these portfolios behaved under selected historical conditions.</p>
+<p>A third limitation is survivorship bias. The selected assets are securities that are currently known and available, which may exclude firms or funds that failed, merged, or disappeared. This limitation will be documented in the analysis and final write-up.</p>
+</section>
+<section id="freeze-statement" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="freeze-statement"><span class="header-section-number">8</span> Freeze Statement</h2>
+<p>The data source, portfolio list, benchmark list, crisis-regime definitions, and ingestion process are frozen as of the M2 data summary. The final dataset covers historical market data through <strong>2026-06-28</strong>. No further ingestion work is planned for the current project scope.</p>
+<p>All data needed to answer the current research questions have been collected or can be regenerated through the existing notebooks without further manual intervention. Future work will focus on analysis, optimization, visualization, and communication rather than bringing in new datasets.</p>
+<p>If the team later proposes a new data source, new volatility proxy, or different benchmark structure, that change will be documented as a scope change and raised with the instructor before being added.</p>
+<p>The proposal scope has not materially changed since M1. The project remains focused on portfolio optimization, return preservation, drawdown resistance, and sector behavior during financial crises and market uncertainty.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

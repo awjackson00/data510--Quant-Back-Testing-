@@ -5,7 +5,6 @@ author:
   - "Dane Herrin"
   - "Alexander Jackson"
 date: today
-bibliography: refs.bib
 format:
   html:
     toc: true
@@ -21,43 +20,242 @@ execute:
 ---
 
 ## Research Question Reminder
-- **Primary research question:**
-    - How can portfolio optimization help stakeholders construct portfolios that preserve return potential while reducing drawdowns during periods of financial crisis and market uncertainty?
-- **Sub questions:**
-    1. Do drawdown-resistant portfolios experience significantly lower gains during growth years compared to regular market indexes?
-    2. How does portfolio performance during crisis periods compare to performance during normal market conditions?
-    3. How are Sharpe and Sortino ratios affected during periods of uncertainty compared to periods of growth?
-    4. How do different asset classes and sectors, such as technology, energy, real estate, consumer staples, and defensive treasury-based assets, behave during periods of market stress?
 
+This project examines how portfolio optimization can help stakeholders construct portfolios that preserve return potential while reducing drawdowns during periods of financial crisis and market uncertainty. The frozen data scope supports this question by collecting historical daily market data for selected securities, sector portfolios, defensive assets, and benchmark indexes. These data allow us to compare portfolio behavior across growth periods, normal market periods, and crisis regimes using total return, drawdown, volatility, Sharpe ratio, Sortino ratio, and sector-level performance.
+
+- **Primary research question:**
+  - How can portfolio optimization help stakeholders construct portfolios that preserve return potential while reducing drawdowns during periods of financial crisis and market uncertainty?
+
+- **Sub questions:**
+  1. Do drawdown-resistant portfolios experience significantly lower gains during growth years compared to regular market indexes?
+  2. How does portfolio performance during crisis periods compare to performance during normal market conditions?
+  3. How are Sharpe and Sortino ratios affected during periods of uncertainty compared to periods of growth?
+  4. How do different asset classes and sectors, such as technology, energy, real estate, consumer staples, and defensive treasury-based assets, behave during periods of market stress?
+
+The data scope is now frozen around the portfolios, benchmarks, and historical market data needed to answer these questions. Future work will focus on analysis, modeling, optimization, and communication rather than adding new data sources.
 
 ## Data Inventory
-- Portfolio construction spans from 34 securities and equities and 20 years of daily trading prices. This is outlined in the EDA Capstone notebook in notebooks folder of this repository. The individual stocks and benchmark tickers are pulled from yfinance and stored as pandas dataframes. 
-- They are then segregated into five individual portfolios, including Mega-Cap Tech stocks. These include the largest technological companies of the last 25 years such as Apple, Microsoft, NVIDIA, Google, Amazon, Meta, Broadcom, and Tesla. 
-- The second Portfolio was constructed under the barbell investment theory. 95% of the portfolio is invested in risk-free bond securities and the other 5% is invested in a volatile equity that is negatively correlated with the market. 
-- The third portfolio highlights the Energy sector, including ExxonMobil, Chevron, ConocoPhillips, EOG Resources, Schlumberger, NextEra Energy, Duke Energy, Constellation Energy, Southern Company, and Dominion Energy. This grants exposure to oil refinement, extraction, and processing and electrical infrastructure.
-- The fourth portfolio tracks an aggregated commercial real estate ETF from Vanguard. 
-- The final portfolio tracks Fast Moving Consumer Goods, or *FMCG*. This gives exposure to groceries like Walmart, Costco, and Targer. There are branded consumer goods Procter & Gamble, Unilever, and Kimberly-Clark. Finally, food and beverage companies Coca-Cola, PepsiCo, Nestle, and General Mills. 
-* Since these data are static, one pull from Yahoo Finance per notebook has given us enough data to complete portfolio analysis to the scope of this project. This is a single API pull that doesn't need to be recreated for daily scraping. 
+
+The current frozen data scope covers historical market data through **2026-06-28**. This snapshot is sufficient for the current data summary, EDA, portfolio backtesting, crisis-period comparison, and optimization analysis. No additional market data will be collected after this milestone.
+
+The frozen data scope includes **31 portfolio assets across 5 constructed portfolios**, plus benchmark series used for comparison. In total, the historical price pull includes **34 downloaded asset or benchmark columns**. Historical adjusted prices were pulled from Yahoo Finance through `yfinance`, producing a price dataframe from **2007-01-03 through 2026-06-28**. These prices were converted into daily returns, then aggregated into a combined portfolio and benchmark return dataframe used for portfolio-level analysis.
+
+| Dataset / Table | Source | License / Terms | Row Count / Size | Date Range | Refresh Policy | Repo Location |
+|---|---|---|---:|---|---|---|
+| Portfolio construction table | Team-created | Internal project artifact | 31 rows | Static | Frozen after M2 unless approved scope change occurs | `notebooks/EDA Capstone.ipynb` |
+| Historical adjusted prices | Yahoo Finance via `yfinance` | Public market data through API wrapper | [rerun row count] rows x 34 columns | 2007-01-03 to 2026-06-28 | Frozen after M2; no further ingestion planned | `notebooks/EDA Capstone.ipynb` |
+| Asset-level daily returns | Derived from adjusted prices | Same as source data | [rerun row count] rows x 34 columns | 2007-01-03 to 2026-06-28 | Rebuilt only from frozen inputs | `notebooks/EDA Capstone.ipynb` |
+| Combined portfolio and benchmark returns | Derived from asset returns, portfolio weights, and benchmark definitions | Team-created derived dataset | [rerun row count] rows x 9 columns | 2007-01-04 to 2026-06-28 | Rebuilt only from frozen inputs | `notebooks/EDA Capstone.ipynb` |
+| Crisis and regime definitions | Team-created | Internal project artifact | Defined in notebook | Historical crisis and growth windows | Static after M2 freeze | `notebooks/EDA Capstone.ipynb` |
+| Sharpe and Sortino calculations | Derived from portfolio return data | Team-created derived analysis | Notebook output | Same as portfolio return period | Rebuilt from frozen portfolio return data | `notebooks/SharpeRatioSheet.ipynb` |
+
+Because the data are static for the purposes of this milestone, one pull from Yahoo Finance per notebook provides enough data to complete the portfolio analysis within the current project scope. The project does not require daily scraping or ongoing data ingestion after the M2 freeze.
+
+### Portfolio Construction Inventory
+
+The project currently organizes assets into five main constructed portfolios plus market benchmarks.
+
+1. **Mega-Cap Technology Portfolio**  
+   This portfolio includes large technology and growth-oriented companies from the last 25 years, including Apple, Microsoft, NVIDIA, Google, Amazon, Meta, Broadcom, and Tesla. The purpose of this portfolio is to represent concentrated exposure to high-growth technology firms.
+
+2. **Barbell Portfolio**  
+   This portfolio is based on barbell investment theory. Most of the portfolio is allocated to defensive or risk-free bond exposure, while a small portion is allocated to a volatility-sensitive asset. In the current construction, 95% is allocated to risk-free or treasury-based securities and 5% is allocated to a volatility proxy. This portfolio is designed to test downside protection and market-stress resilience.
+
+3. **Energy Portfolio**  
+   This portfolio includes ExxonMobil, Chevron, ConocoPhillips, EOG Resources, Schlumberger, NextEra Energy, Duke Energy, Constellation Energy, Southern Company, and Dominion Energy. The portfolio provides exposure to oil extraction, oil refinement, energy services, utilities, and electrical infrastructure.
+
+4. **Real Estate Portfolio**  
+   This portfolio tracks real estate exposure using an aggregated commercial real estate ETF from Vanguard. This allows the project to evaluate how real estate behaves during normal markets, inflationary periods, and high-interest-rate environments.
+
+5. **Fast-Moving Consumer Goods Portfolio**  
+   The final portfolio tracks fast-moving consumer goods, or FMCG. This portfolio includes grocery and retail companies such as Walmart, Costco, and Target; branded consumer goods companies such as Procter & Gamble, Unilever, and Kimberly-Clark; and food and beverage companies such as Coca-Cola, PepsiCo, Nestle, and General Mills. This portfolio is intended to represent defensive consumer demand.
+
+6. **Benchmarks**  
+   The project uses market benchmarks to compare portfolio performance. These include regular market indexes and benchmark return series such as the S&P 500, market excess return where applicable, and a risk-free rate proxy. These benchmarks provide reference points for evaluating whether the constructed portfolios outperform, underperform, or trade return potential for drawdown resistance.
 
 ## Schema and Organization
-- Using single pull dataframes saves space and therefore shareholder time and money. Portfolio tickers are saved as in key:value dictionaries, as are the timeframe regimes. Those are then used to download price data starting from the first available date of public trading, or 01-03-2000, whichever is first. Some tickers have IPO'ed after January 2000, where equal weighting to the portfolio is kept throughout the regimes. Once a new equity is added, the portfolio weighting is rebalanced to keep equal weighting with all equities. This is most prevalent with the Mega-Cap Tech portfolio, as four of the eight stocks IPO'ed after 2000. 
-- Benchmarks are the Fama-French Mkt-Rf return, which is an aggregation of the returns of all existing markets minus the risk-free rate, which is the rate of return that the safest asset gives. The 10-year US treasury bill yield is used as a proxy to represent this return. The other benchmark is the S&P 500, an aggregation of the 500 largest companies that are traded on public markets. 
-- The lack of need for 3NF relational databases mean that we don't have explicit primary keys or join paths. We do however keep our dataframes indexed on date, which becomes the x axis for visualization. 
+
+The project is organized around portfolio dictionaries and date-indexed financial dataframes. The portfolio construction dictionaries define each portfolio as a set of ticker and weight pairs. These dictionaries are then used to download historical price data, calculate daily returns, and aggregate individual asset returns into portfolio-level return series.
+
+The project does not require a fully normalized 3NF relational database because the analysis is time-series based and can be handled efficiently through pandas dataframes. However, the data still have clear keys, indexes, and transformation paths. The central unit of observation is a daily market observation for a ticker or portfolio.
+
+### Logical Data Structure
+
+The project follows this logical flow:
+
+1. **Portfolio definitions**  
+   Team-created dictionaries define portfolio names, tickers, and weights.
+
+2. **Raw market data**  
+   Historical adjusted prices are downloaded from Yahoo Finance through `yfinance`.
+
+3. **Asset-level returns**  
+   Adjusted prices are converted into daily percentage returns for each ticker.
+
+4. **Portfolio-level returns**  
+   Individual asset returns are weighted and combined to create daily portfolio return series.
+
+5. **Regime and crisis labels**  
+   Date ranges are assigned to market regimes, including crisis periods, growth periods, and normal market periods.
+
+6. **Analysis-ready metrics**  
+   Portfolio return data are used to calculate cumulative return, maximum drawdown, volatility, Sharpe ratio, Sortino ratio, and crisis-specific performance metrics.
+
+### Keys and Join Paths
+
+| Data Object | Key / Index | Purpose |
+|---|---|---|
+| Price dataframe | `date`, `ticker` | Tracks adjusted prices for each asset over time |
+| Return dataframe | `date`, `ticker` | Tracks daily percentage returns for each asset |
+| Portfolio dictionary | `portfolio`, `ticker`, `weight` | Defines portfolio construction |
+| Portfolio return dataframe | `date`, `portfolio` | Tracks daily weighted returns for each portfolio |
+| Regime dictionary | `start_date`, `end_date`, `regime_name` | Labels market conditions by date range |
+| Combined returns dataframe | `date`, `portfolio_or_benchmark` | Holds final portfolio and benchmark return series |
+
+The main join path is:
+
+`portfolio weights + asset returns -> weighted asset returns -> portfolio-level returns -> crisis/normal regime labels -> performance metrics`
+
+This structure allows the team to move from raw daily prices to analysis-ready portfolio comparisons without needing a full relational warehouse.
+
+### Raw vs Analysis-Ready Layers
+
+- **Raw layer:** Market prices pulled from Yahoo Finance and the team-created portfolio definitions.
+- **Interim layer:** Cleaned adjusted prices and daily return calculations.
+- **Analysis-ready layer:** Portfolio-level returns, benchmark returns, crisis-period labels, and performance metric tables.
+
+The current work is stored primarily in the `EDA Capstone.ipynb` notebook inside the `notebooks/` folder. The `portfolioConstruction(1).ipynb` notebook was used for initial portfolio construction work, and `SharpeRatioSheet.ipynb` supports the risk-adjusted performance calculations, including Sharpe and Sortino ratio analysis. As the project matures, derived tables can also be exported to `data/raw/`, `data/interim/`, and `data/processed/` folders for clearer DS3-style organization.
 
 ## Ingestion Status
-- Manual pulls are completed and EDA and visualization is completed. 
+
+Manual data pulls have been completed for the frozen M2 data snapshot through **2026-06-28**, and the ingestion process is stable. The notebook pulls financial data through `yfinance`, stores the results as pandas dataframes, and transforms those data into asset-level and portfolio-level return series.
+
+The source system, ticker list, benchmark list, portfolio construction logic, and crisis-regime definitions are frozen. No additional ingestion work is planned after this milestone. Future work will focus on analysis, optimization, visualization, and communication rather than bringing in new data.
+
+At this stage, the team has completed:
+
+- Portfolio construction definitions
+- Historical market data pulls through 2026-06-28
+- Daily return calculations
+- Portfolio-level return calculations
+- Initial EDA and visualization
+- Benchmark comparison setup
+- Crisis and market-regime framing
+- Sharpe and Sortino ratio setup
+
+The pipeline is stable because rerunning the notebook performs the same pull, transformation, return construction, and metric generation steps without manual file downloads.
+
+### Ingestion Pipeline
+
+The ingestion pipeline follows this order:
+
+1. Define portfolio tickers and weights.
+2. Define benchmark tickers and market regime windows.
+3. Pull adjusted historical price data using `yfinance`.
+4. Convert adjusted prices into daily returns.
+5. Rebalance portfolio weights as assets become available.
+6. Aggregate weighted returns into portfolio-level return series.
+7. Compare portfolio returns against benchmarks and market regimes.
+8. Calculate performance metrics such as cumulative return, volatility, Sharpe ratio, Sortino ratio, and drawdown.
+
+### Failure Handling
+
+Potential ingestion issues include unavailable tickers, assets with short trading histories, missing daily prices, or API interruptions. These issues are handled by checking first available trading dates, missing values, and whether each portfolio has enough observations for comparison. If a ticker is unavailable or has insufficient history, the team will either use a reasonable ETF proxy, restrict the analysis window, or document the limitation.
+
+The project does not require scheduled scraping. Since the analysis is historical and the M2 data scope is frozen, the ingestion process is treated as a reproducible one-shot pull rather than a recurring production pipeline.
 
 ## Data Quality and Profiling
-- Data missingness within portfolios are dealt with by balancing and rebalancing the portfolio as the data becomes available, as rebalancing is an industry standard behavior. Duplicates are not an issue, as each equitiy is given an individual ticker and tracked solely by that ticker. Outliers are left in and not smoothed out, as they are what we are tracking. 
-- Some caveats for the research are that the five different portfolios essentially track two sides of the market, securities and equities. The different portfolios track the major sectors on the equity side, while the Barbell portflio tracks the US Bond market that represents the security side. In essence, our research is parsing out different aspects of the market and expect to see a fair amount of co-variance between portfolios. 
-- Finding an acceptable proxy for market volatility presented an initial challenge. The variable used in the end was the Volatility Index, which was created in 1993 to track the implied volatility from S&P 100 at-the-money options. It became tradable as the VIX on the volatility derivatives market in 2004. Since our portfolio tracks the price of the ^VIX, there is no data prior to 2004 for the barbell portfolio. 
+
+The main data quality concerns are missingness, asset availability, outliers, benchmark comparability, rebalancing assumptions, and volatility proxy limitations.
+
+### Missingness and Asset Availability
+
+The frozen M2 data snapshot is analyzed through **2026-06-28**. The price dataframe contains daily trading observations for the selected portfolio assets and benchmarks. The asset return dataframe has the same asset coverage, but the first trading day is not usable for return analysis because daily returns require a prior price observation. As a result, the combined portfolio and benchmark return dataframe begins one trading day after the first available price date.
+
+Missingness within portfolios is handled by rebalancing the portfolio as asset data become available. This is important because some companies went public after January 2000 and therefore do not have full historical coverage. For example, the Mega-Cap Technology Portfolio includes companies with different IPO dates, so equal weighting is maintained among available assets until additional assets enter the portfolio.
+
+This approach reflects a realistic rebalancing practice, but it also means that portfolio composition changes over time. The analysis will document this limitation when comparing early periods to later periods.
+
+### Duplicates
+
+Duplicates are not expected to be a major issue because each equity, ETF, or index is tracked by a unique ticker and indexed by date. Each ticker-date combination should appear once in the raw price data. If duplicate ticker-date rows are found, they will be removed before return calculations.
+
+### Outliers
+
+Outliers are intentionally preserved because extreme market movements are central to this project. The goal is to examine how portfolios behave during stress events, so large negative or positive returns should not be automatically smoothed out. However, extreme values will be reviewed to distinguish true market events from possible data errors.
+
+### Portfolio Weight Checks
+
+Each portfolio must maintain valid allocation weights. Equal-weighted portfolios should sum to 1 across available assets, and the barbell portfolio should preserve its 95/5 allocation logic. Weight checks are necessary because incorrect weights would distort portfolio return, volatility, Sharpe ratio, Sortino ratio, and drawdown results.
+
+### Market Coverage Caveats
+
+The five constructed portfolios primarily track different sides of the market, including equities, defensive securities, and sector-specific exposure. Because many assets still respond to broad market conditions, the team expects some covariance between portfolios. Part of the analysis will examine whether diversification benefits remain meaningful during crisis periods or whether correlations increase during market stress.
+
+### Volatility Proxy Caveat
+
+Finding an acceptable proxy for market volatility presented an initial challenge. The variable used in the current version is the Volatility Index, or VIX. The VIX was created to track implied volatility from options markets and became tradable through volatility derivatives in the 2000s. Since the current portfolio tracks the price of `^VIX`, the barbell portfolio has limited history before 2004. In addition, `^VIX` itself is an index rather than a directly investable asset, so the final analysis will either treat it as a stress proxy or clearly document it as a limitation.
 
 ## Reproducibility
-- This project is very reproducable. Someone could use this as a code base, change the variables and tickers pulled from the database, and track their own portfolio constructions. There are portions of this project where the code has been pulled from other quantitative analysis projects we have done in the past. 
+
+This project is reproducible because the portfolio definitions, tickers, date ranges, and data pull process are contained in the project notebooks. A peer could rerun the notebooks to reconstruct the same market data pull, daily return calculations, portfolio return series, risk-adjusted metrics, and visualizations.
+
+### Main Notebooks
+
+| Notebook | Purpose |
+|---|---|
+| `notebooks/EDA Capstone.ipynb` | Main M2 data pipeline, EDA, portfolio return construction, and visualization |
+| `notebooks/SharpeRatioSheet.ipynb` | Supports Sharpe, Sortino, and risk-adjusted return calculations |
+| `notebooks/portfolioConstruction(1).ipynb` | Earlier portfolio construction and exploratory setup |
+
+### Rebuild Instructions
+
+To rebuild the analysis-ready data:
+
+1. Clone the project repository.
+2. Install the required Python packages.
+3. Open the EDA Capstone notebook in the `notebooks/` folder.
+4. Restart the kernel and run the notebook from top to bottom.
+5. Confirm that the price data, return data, portfolio return data, and visualizations are regenerated.
+6. Run `SharpeRatioSheet.ipynb` if updated Sharpe and Sortino outputs are needed.
+
+**Example environment setup:**
+
+```bash
+pip install pandas numpy yfinance matplotlib
+```
+
+### Environment Notes
+
+The project uses Python with the following core packages:
+
+- `pandas`
+- `numpy`
+- `yfinance`
+- `matplotlib`
+
+No private API keys or secrets are required for the current ingestion pipeline. Yahoo Finance data are accessed through the public `yfinance` package, and all portfolio definitions are stored directly in the project notebooks.
+
+### Reproducibility Caveat
+
+Because Yahoo Finance data can occasionally revise adjusted prices or change ticker availability, exact row counts may vary slightly if the notebook is rerun in the future. To preserve reproducibility for this milestone, the project freezes the analysis window at **2026-06-28** and documents the pull date, asset list, benchmark list, and portfolio construction logic used for the M2 data summary.
 
 ## Ethics and Access Controls
-- All data pulled is properly labeled, consented to, free, and openly available through Yahoo Finance. This is all public data that is utilized by thousands of traders every day, from retail investors to institutions. 
-- One note to the cleanliness, availability, and ease of this data is that we have found the closer open source data is value creation, the better it is maintained. Public market data are some of the most available and easy to use data we have encountered. This has made this project a treat in that respect. 
+
+All data used in the current project are public financial market data. No personally identifiable information, private investor records, account-level data, or restricted financial information are collected.
+
+The primary ethical risk is that the results could be misinterpreted as investment advice. To address this, the project will clearly state that all analysis is historical and educational. The project does not recommend that stakeholders buy, sell, or hold any specific asset.
+
+A second ethical limitation is that backtesting can create false confidence. Historical performance does not guarantee future results. The project will avoid presenting any portfolio as objectively “best” for future investing and will instead frame results as evidence about how these portfolios behaved under selected historical conditions.
+
+A third limitation is survivorship bias. The selected assets are securities that are currently known and available, which may exclude firms or funds that failed, merged, or disappeared. This limitation will be documented in the analysis and final write-up.
 
 ## Freeze Statement
-- All needed data for this proposal has been collected and no further ingestion will be needed. 
+
+The data source, portfolio list, benchmark list, crisis-regime definitions, and ingestion process are frozen as of the M2 data summary. The final dataset covers historical market data through **2026-06-28**. No further ingestion work is planned for the current project scope.
+
+All data needed to answer the current research questions have been collected or can be regenerated through the existing notebooks without further manual intervention. Future work will focus on analysis, optimization, visualization, and communication rather than bringing in new datasets.
+
+If the team later proposes a new data source, new volatility proxy, or different benchmark structure, that change will be documented as a scope change and raised with the instructor before being added.
+
+The proposal scope has not materially changed since M1. The project remains focused on portfolio optimization, return preservation, drawdown resistance, and sector behavior during financial crises and market uncertainty.
