@@ -43,9 +43,9 @@ The frozen data scope includes **31 portfolio assets across 5 constructed portfo
 | Dataset / Table | Source | License / Terms | Row Count / Size | Date Range | Refresh Policy | Repo Location |
 |---|---|---|---:|---|---|---|
 | Portfolio construction table | Team-created | Internal project artifact | 31 rows | Static | Frozen after M2 unless approved scope change occurs | `notebooks/EDA Capstone.ipynb` |
-| Historical adjusted prices | Yahoo Finance via `yfinance` | Public market data through API wrapper | [rerun row count] rows x 34 columns | 2007-01-03 to 2026-06-28 | Frozen after M2; no further ingestion planned | `notebooks/EDA Capstone.ipynb` |
-| Asset-level daily returns | Derived from adjusted prices | Same as source data | [rerun row count] rows x 34 columns | 2007-01-03 to 2026-06-28 | Rebuilt only from frozen inputs | `notebooks/EDA Capstone.ipynb` |
-| Combined portfolio and benchmark returns | Derived from asset returns, portfolio weights, and benchmark definitions | Team-created derived dataset | [rerun row count] rows x 9 columns | 2007-01-04 to 2026-06-28 | Rebuilt only from frozen inputs | `notebooks/EDA Capstone.ipynb` |
+| Historical adjusted prices | Yahoo Finance via `yfinance` | Public market data through API wrapper |  rows x 34 columns | 2007-01-03 to 2026-06-28 | Frozen after M2; no further ingestion planned | `notebooks/EDA Capstone.ipynb` |
+| Asset-level daily returns | Derived from adjusted prices | Same as source data |  rows x 34 columns | 2007-01-03 to 2026-06-28 | Rebuilt only from frozen inputs | `notebooks/EDA Capstone.ipynb` |
+| Combined portfolio and benchmark returns | Derived from asset returns, portfolio weights, and benchmark definitions | Team-created derived dataset |  rows x 9 columns | 2007-01-04 to 2026-06-28 | Rebuilt only from frozen inputs | `notebooks/EDA Capstone.ipynb` |
 | Crisis and regime definitions | Team-created | Internal project artifact | Defined in notebook | Historical crisis and growth windows | Static after M2 freeze | `notebooks/EDA Capstone.ipynb` |
 | Sharpe and Sortino calculations | Derived from portfolio return data | Team-created derived analysis | Notebook output | Same as portfolio return period | Rebuilt from frozen portfolio return data | `notebooks/SharpeRatioSheet.ipynb` |
 

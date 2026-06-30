@@ -8,7 +8,7 @@
 
 <meta name="author" content="Dane Herrin">
 <meta name="author" content="Alexander Jackson">
-<meta name="dcterms.date" content="2026-06-28">
+<meta name="dcterms.date" content="2026-06-29">
 
 <title>M2 Data Summary Deliverable</title>
 <style>
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 28, 2026</p>
+      <p class="date">June 29, 2026</p>
     </div>
   </div>
   
@@ -187,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Historical adjusted prices</td>
 <td>Yahoo Finance via <code>yfinance</code></td>
 <td>Public market data through API wrapper</td>
-<td style="text-align: right;">[rerun row count] rows x 34 columns</td>
+<td style="text-align: right;">rows x 34 columns</td>
 <td>2007-01-03 to 2026-06-28</td>
 <td>Frozen after M2; no further ingestion planned</td>
 <td><code>notebooks/EDA Capstone.ipynb</code></td>
@@ -196,7 +196,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Asset-level daily returns</td>
 <td>Derived from adjusted prices</td>
 <td>Same as source data</td>
-<td style="text-align: right;">[rerun row count] rows x 34 columns</td>
+<td style="text-align: right;">rows x 34 columns</td>
 <td>2007-01-03 to 2026-06-28</td>
 <td>Rebuilt only from frozen inputs</td>
 <td><code>notebooks/EDA Capstone.ipynb</code></td>
@@ -205,7 +205,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Combined portfolio and benchmark returns</td>
 <td>Derived from asset returns, portfolio weights, and benchmark definitions</td>
 <td>Team-created derived dataset</td>
-<td style="text-align: right;">[rerun row count] rows x 9 columns</td>
+<td style="text-align: right;">rows x 9 columns</td>
 <td>2007-01-04 to 2026-06-28</td>
 <td>Rebuilt only from frozen inputs</td>
 <td><code>notebooks/EDA Capstone.ipynb</code></td>
@@ -443,7 +443,7 @@ Portfolio return data are used to calculate cumulative return, maximum drawdown,
 <li>Confirm that the price data, return data, portfolio return data, and visualizations are regenerated.</li>
 <li>Run <code>SharpeRatioSheet.ipynb</code> if updated Sharpe and Sortino outputs are needed.</li>
 </ol>
-<p>Example environment setup:</p>
+<p><strong>Example environment setup:</strong></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install pandas numpy yfinance matplotlib</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="environment-notes" class="level3" data-number="6.3">
