@@ -1,0 +1,19 @@
+---
+title: Week 5 Capstone Assignment
+Author: Dane Herrin
+date: last-modified
+format: 
+    revealjs: default
+    html:
+        toc: true
+    pdf: 
+        toc: true
+        number-sections: true
+execute: 
+    echo: true
+    warning: false
+    message: false
+jupyter: python3
+---
+
+

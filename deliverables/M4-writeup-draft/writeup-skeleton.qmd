@@ -66,7 +66,7 @@ How are Sharpe and Sortino ratios affected during periods of uncertainty compare
 How do different asset classes and sectors, such as technology, energy, real estate, consumer stapl
 
 
-**Changes since M1 proposal:** *none yet*
+**Changes since M1 proposal:** Reduction in Benchmarks to prevent redundant information. 
 
 # Impact and Stakeholders
 
