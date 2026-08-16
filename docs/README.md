@@ -4,10 +4,9 @@
 
 Dane Herrin & Alexander Jackson · DATA 510 Data Science Capstone · Willamette University · Summer 2026
 
-**Project site:** https://awjackson00.github.io/data510-Quant-Back-Testing/
-*(update this URL if your GitHub Pages username/repo differs — see "Publishing this site" below)*
+**Project site (live):** https://daneherrin.github.io/data510--Quant-Back-Testing-/
 
-**Analysis repository:** https://github.com/awjackson00/data510-Quant-Back-Testing
+**Analysis repository:** https://github.com/awjackson00/data510--Quant-Back-Testing-
 
 ---
 
@@ -36,26 +35,31 @@ deliverable ("Project Website and Dissemination") for DATA 510.
 
 ## Publishing this site (GitHub Pages)
 
-1. Push this folder to a repository — either as the `/docs` folder of the analysis repo, or
-   as its own repo (e.g. `data510-Quant-Back-Testing-site`).
-2. In the repo's **Settings → Pages**, set the source to the branch and folder containing
-   these files (`main` / `/docs`, or `main` / `/root`).
-3. GitHub serves the site over HTTPS automatically at
-   `https://<username>.github.io/<repo>/` (or `.../<repo>/docs/` if published from a subfolder
-   without moving it to root — publishing from `/docs` at the repo root avoids that extra
-   path segment).
-4. Replace the placeholder URL at the top of this README with the real Pages URL once it is
-   live, and add the same link to your GitHub profile README and to Canvas.
+This is already live at https://daneherrin.github.io/data510--Quant-Back-Testing-/, served from the
+`docs/` folder of the `main` branch of this repo. To redeploy after updating any file:
+
+1. Copy the updated file(s) into `docs/` in your local clone.
+2. `git add docs && git commit -m "Update site" && git pull origin main --rebase && git push origin main`
+3. GitHub rebuilds the Pages deployment automatically, usually within a minute or two.
+
+If you ever need to re-create the Pages setup from scratch: **Settings → Pages → Build and deployment
+→ Source: "Deploy from a branch" → Branch: `main` / `docs`.**
+
+### If a file 404s after deploying
+
+Binary files (PDFs, images) are the most common thing to go missing on push. Before committing, run
+`git status` and confirm the new/changed file shows up as staged — and check this repo's `.gitignore`
+for a stray `*.pdf` or `assets/` rule that could be silently excluding it.
 
 ## Reproducing the analysis
 
 See [`reproducibility.html`](reproducibility.html) for the full guide, or the short version:
 
 ```bash
-git clone https://github.com/awjackson00/data510-Quant-Back-Testing.git
-cd data510-Quant-Back-Testing
+git clone https://github.com/awjackson00/data510--Quant-Back-Testing-.git
+cd data510--Quant-Back-Testing-
 python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
+pip install numpy pandas yfinance matplotlib seaborn statsmodels scikit-learn jupyterlab
 jupyter lab notebooks/
 ```
 
